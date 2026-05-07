@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+from app.api.health import router as health_router
 from app.core.config import settings
 
 app = FastAPI(
@@ -8,23 +9,4 @@ app = FastAPI(
     version=settings.PROJECT_VERSION,
 )
 
-
-@app.get("/")
-def read_root():
-    return {
-        "message": "RequestFlow API is running",
-        "project": "Proyecto 001",
-        "name": settings.PROJECT_NAME,
-        "version": settings.PROJECT_VERSION,
-        "environment": settings.ENVIRONMENT,
-        "status": "ok",
-    }
-
-
-@app.get("/health")
-def health_check():
-    return {
-        "status": "healthy",
-        "service": "requestflow-api",
-        "environment": settings.ENVIRONMENT,
-    }
+app.include_router(health_router)
