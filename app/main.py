@@ -1,23 +1,30 @@
 from fastapi import FastAPI
 
+from app.core.config import settings
+
 app = FastAPI(
-    title="RequestFlow FastAPI",
-    description="API backend para la gestión de solicitudes institucionales y empresariales",
-    version="0.1.0",
+    title=settings.PROJECT_NAME,
+    description=settings.PROJECT_DESCRIPTION,
+    version=settings.PROJECT_VERSION,
 )
+
 
 @app.get("/")
 def read_root():
-    return{
-        "message":"RequestFlow API is running",
-        "project":"Proyecto 001",
-        "version":"0.1.0",
-        "status":"ok",
+    return {
+        "message": "RequestFlow API is running",
+        "project": "Proyecto 001",
+        "name": settings.PROJECT_NAME,
+        "version": settings.PROJECT_VERSION,
+        "environment": settings.ENVIRONMENT,
+        "status": "ok",
     }
+
 
 @app.get("/health")
 def health_check():
-    return{
-        "status":"healthy",
-        "message":"RequestFlow-API",
+    return {
+        "status": "healthy",
+        "service": "requestflow-api",
+        "environment": settings.ENVIRONMENT,
     }
