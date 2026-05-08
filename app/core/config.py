@@ -6,6 +6,8 @@ class Settings(BaseSettings):
     PROJECT_DESCRIPTION: str = "API backend para la gestión de solicitudes institucionales y empresariales"
     ENVIRONMENT: str = "development"
     
+    DATABASE_URL: str = "postgresql+psycopg://postgres:postgres@localhost:5432/requestflow_db"
+    
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
